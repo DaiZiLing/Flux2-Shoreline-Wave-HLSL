@@ -53,8 +53,8 @@ float MF_Fresnel (float Bias, float Scale, float Power, float3 NormalWS, float3 
 
 float MF_DirectionalSpecular (float3 NormalWS, float3 CameraDir)
 {
-    float3 Vector_F3  = normalize(CameraDir + _DirectionalLightDirection);
-    float  HalfVector = dot(Vector_F3, NormalWS);
+    float3 Vector_F3  = normalize(CameraDir + normalize(_DirectionalLightDirection * float3(-1, 1, -1)));
+    float  HalfVector = dot(Vector_F3.xzy, NormalWS);
     return HalfVector;
 }
 

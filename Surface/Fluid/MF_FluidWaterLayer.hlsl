@@ -54,11 +54,12 @@ void MF_FluidWaterLayer (FSurfacePositionData PosData, float Translucent, float3
     // FluidLayer Roughness
     float FluidLayer_Roughness;
 
-    FluidLayer_Roughness = MF_DirectionalSpecular(SurfaceLayer.Normal, PosData.CameraPositionWS) - _WaterRoughnessFromSpecularDiv;
+    FluidLayer_Roughness = MF_DirectionalSpecular(SurfaceLayer.Normal, PosData.CameraVectorWS);
+    FluidLayer_Roughness -= _WaterRoughnessFromSpecularDiv;
     FluidLayer_Roughness = FluidLayer_Roughness / (1 - _WaterRoughnessFromSpecularDiv);
     FluidLayer_Roughness *= _WaterRoughnessFromSpecular;
 
-    FluidLayer_Roughness += _WaterRoughnessFromFresnel * pow(1 - dot(SurfaceLayer.Normal, PosData.CameraVectorWS), 5.0);
+    FluidLayer_Roughness += _WaterRoughnessFromFresnel * pow(1 - dot(SurfaceLayer.Normal, PosData.CameraVectorWS.xzy), 5.0);
     FluidLayer_Roughness = max(FluidLayer_Roughness, _WaterRoughnessMin);
 
     if (!_UseWaterRoughnessAdvanced)

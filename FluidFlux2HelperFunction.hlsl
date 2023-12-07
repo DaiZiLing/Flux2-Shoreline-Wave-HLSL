@@ -44,7 +44,7 @@ float3 MF_Lerp (float3 A, float3 B, float Alpha)
 float MF_Fresnel (float Bias, float Scale, float Power, float3 NormalWS, float3 CameraDir)
 {
     float Fresnel;
-    Fresnel = dot(NormalWS, CameraDir) * (-1.0) + 1.0;
+    Fresnel = dot(CameraDir, NormalWS) * (-1.0) + 1.0;
     Fresnel = pow(Fresnel, Power);
     Fresnel *= Scale;
     Fresnel += Bias;
